@@ -12,18 +12,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "donations")
-@Getter @Setter @ToString @EqualsAndHashCode
+@Getter @Setter @ToString(exclude = {"category","institution"}) @EqualsAndHashCode(of = "id")
 public class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer quantity;
-    @OneToMany
-    @JoinColumn(name = "categoryId")
+    @ManyToMany
     private List<Category> category;
     @ManyToOne
-    @JoinColumn(name = "institutionId")
     private Institution institution;
     private String  street;
     private String city;
@@ -31,7 +29,4 @@ public class Donation {
     private LocalDate pickUpDate;
     private LocalTime pickUpTime;
     private String pickUpComments;
-
-    public Donation() {
-    }
 }

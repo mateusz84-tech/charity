@@ -5,4 +5,6 @@ import pl.coderslab.charity.domain.model.Donation;
 
 public interface DonationRepository extends JpaRepository<Donation, Long> {
 
+
+
 }
