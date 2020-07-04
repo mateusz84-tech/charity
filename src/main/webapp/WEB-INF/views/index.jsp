@@ -17,7 +17,7 @@
 
 </head>
 <body>
-
+<%@ include file="header.jsp"%>
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">
@@ -112,6 +112,8 @@
         </ul>
     </div>
 </section>
+
+<%@ include file="footer.jsp"%>
 
 <script src="<c:url value="/resources/js/app.js"/>"></script>
 </body>
