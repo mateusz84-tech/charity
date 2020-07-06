@@ -1,18 +1,20 @@
 package pl.coderslab.charity.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.domain.model.Donation;
-import pl.coderslab.charity.domain.model.Institution;
 import pl.coderslab.charity.domain.repository.CategoryRepository;
 import pl.coderslab.charity.domain.repository.DonationRepository;
 import pl.coderslab.charity.domain.repository.InstitutionRepository;
 
 @Controller
 @RequestMapping("/donation")
+@Slf4j
 public class DonationController {
 
     private final DonationRepository donationRepository;
@@ -32,20 +34,19 @@ public class DonationController {
 
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("institutions", institutionRepository.findAll());
-
-        return "donation/create";
+        model.addAttribute("donations",new Donation());
+        return "donation/form";
     }
 
     @PostMapping("/confirm")
     public String processAddDonation(Donation donation){
 
-        Institution institution = institutionRepository.getInstitutionByName(donation.getInstitution().getName());
+        log.info("zapis {}",donation);
+        //Institution institution = institutionRepository.getInstitutionByName(donation.getInstitution().getName());
         //List<Category> categoryList = categoryRepository.getCategoryByName(donation.getCategory());
-
         donationRepository.save(donation);
-
-        return "donation/confirm";
+        return "donation/form-confirmation";
     }
-
-
 }
+
+// napisać konwertery dla encji category i institution
