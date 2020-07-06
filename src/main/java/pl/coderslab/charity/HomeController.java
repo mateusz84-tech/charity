@@ -32,7 +32,7 @@ public class HomeController {
 
         List<Institution> institutionList = institutionRepository.findAll();
         model.addAttribute("foundation", institutionList);
-        model.addAttribute("donationItem", donationRepository.sumItems());
+        model.addAttribute("donationItem", donationRepository.count());
         model.addAttribute("donationBags", donationRepository.sumQuantity());
         return "index";
     }
