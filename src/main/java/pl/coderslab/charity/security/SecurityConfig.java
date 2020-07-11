@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.coderslab.charity.sevice.SpringDataUserDetailsService;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -20,6 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .withUser("user").password("{noop}user1").roles("USER");
 //    }
 
+    @Bean
+    public SpringDataUserDetailsService customUserDetailsService(){
+        return new SpringDataUserDetailsService();
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -30,5 +35,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin();
     }
-    // formularz rejestracji dodać koneczne csrfinput każdy formularz
+    // formularz rejestracji dodać koneczne csrf input każdy formularz
 }
