@@ -8,8 +8,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.coderslab.charity.sevice.SpringDataUserDetailsService;
 
+import javax.sql.DataSource;
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final DataSource dataSource;
+
+    public SecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -20,20 +28,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.inMemoryAuthentication()
 //                .withUser("user").password("{noop}user1").roles("USER");
 //    }
-
     @Bean
     public SpringDataUserDetailsService customUserDetailsService(){
         return new SpringDataUserDetailsService();
     }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder())
+                .usersByUsernameQuery("SELECT username,password, enabled FROM users WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT u.username, r.name FROM users u JOIN user_role usr ON " +
+                        "usr.user_id = u.id JOIN roles r ON r.id = usr.role_id WHERE u.username = ?");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/register").permitAll()
+                .antMatchers("/register/").permitAll()
                 .antMatchers("/donation/**").hasRole("USER")
-                .and()
-                .formLogin();
+                .and().formLogin().loginPage("/login");
+
     }
     // formularz rejestracji dodać koneczne csrf input każdy formularz
 }
