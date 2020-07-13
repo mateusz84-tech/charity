@@ -105,20 +105,9 @@
                         </div>
                     </li>
                     </c:otherwise>
-<%--                    <li>--%>
-<%--                        <div class="col">--%>
-<%--                            <div class="title">Fundacja ${fundation.name}</div>--%>
-<%--                            <div class="subtitle">Cel i misja: ${fundation.description}</div>--%>
-<%--                        </div>--%>
-<%--                        <div class="col">--%>
-<%--                            <div class="title">Fundacja ${fundation.name}</div>--%>
-<%--                            <div class="subtitle">Cel i misja: ${fundation.description}</div>--%>
-<%--                        </div>--%>
-<%--                    </li>--%>
                 </c:choose>
             </c:forEach>
         </ul>
-
     </div>
 </section>
 
