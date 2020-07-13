@@ -16,8 +16,8 @@
 <header>
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li><a href="/login">Zaloguj</a></li>
-            <li class="highlighted"><a href="/register">Załóż konto</a></li>
+            <li><a href="${pageContext.request.contextPath}/login">Zaloguj</a></li>
+            <li class="highlighted"><a href="${pageContext.request.contextPath}/register">Załóż konto</a></li>
         </ul>
 
         <ul>
@@ -30,12 +30,13 @@
     </nav>
 </header>
 
+<%--<%@include file="/WEB-INF/views/header.jsp" %>--%>
 <section class="login-page">
     <h2>Załóż konto</h2>
-    <form action="/register" method="post">
+    <form action="${pageContext.request.contextPath}/register" method="post">
         <sec:csrfInput/>
         <div class="form-group">
-            <input type="email" name="email" placeholder="Email" />
+            <input type="email" name="username" placeholder="Email" />
         </div>
         <div class="form-group">
             <input type="password" name="password" placeholder="Hasło" />
