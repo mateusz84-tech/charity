@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.domain.model.Donation;
@@ -42,8 +41,6 @@ public class DonationController {
     public String processAddDonation(Donation donation){
 
         log.info("zapis {}",donation);
-        //Institution institution = institutionRepository.getInstitutionByName(donation.getInstitution().getName());
-        //List<Category> categoryList = categoryRepository.getCategoryByName(donation.getCategory());
         donationRepository.save(donation);
         return "donation/form-confirmation";
     }
